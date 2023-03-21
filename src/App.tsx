@@ -37,7 +37,7 @@ function App() {
       }
 
       // Post file data to the server
-      const response = await axios.post('http://localhost:3000/zip-file', { file: fileData });
+      const response = await axios.post('http://localhost:2000/zipping', { file: fileData });
 
       // Check if the response is valid
       if (!response.data) {
