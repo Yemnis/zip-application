@@ -55,6 +55,7 @@ function App() {
   return (
     <div>
       <div className='zip-container'>
+        <h1> Welcome to the Super Duper Zip App</h1>
       <Dropzone onDrop={(acceptedFiles: File[]) => handleDrop(acceptedFiles)}>
         {({ getRootProps, getInputProps, isDragActive }: DropzoneState) => (
           <div {...getRootProps()} className={isDragActive ? "dropzone-active" : ""}>
