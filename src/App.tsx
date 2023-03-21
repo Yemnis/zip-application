@@ -56,7 +56,7 @@ function App() {
   return (
     <div>
       <div className='zip-container'>
-        <h1> Welcome to the Zip App</h1>
+        <h1 className='header'> Welcome to the Zip App</h1>
         <div className='dropzone'>
           <Dropzone onDrop={(acceptedFiles: File[]) => handleDrop(acceptedFiles)}>
             {({ getRootProps, getInputProps, isDragActive }: DropzoneState) => (
@@ -70,10 +70,10 @@ function App() {
               </div>
             )}
           </Dropzone>
-          </div>
-      </div>
+        </div>
+      
 
-      <button disabled={!fileName} onClick={handleUpload}>
+      <button className='btn' disabled={!fileName} onClick={handleUpload}>
         Upload and zip file
       </button>
       {error && <div>{error}</div>}
@@ -85,6 +85,7 @@ function App() {
           <div>Transfer complete with no errors. Please enjoy the zipped file.</div>
         </div>
       )}
+      </div>
     </div>
   );
 }

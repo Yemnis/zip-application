@@ -8,13 +8,36 @@ body {
 }
 
 .zip-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  h1 {
-    align-items: center;
-    justify-content: center;
+}
+
+.zip-container > * {
+  margin: 10px 0;
+}
+
+.zip-container .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zip-container .btn {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #e44dee;
   }
 }
+
 
 .dropzone {
   height: 200px;
@@ -28,26 +51,12 @@ body {
   border-radius: 10px;
 
   .text{
-    font-size: large;
+    font-size: 2rem;
   }
 }
 
 .dropzone-active {
   background-color: #e44dee;
-}
-
-.btn {
-  background-color: $primary-color;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: darken($primary-color, 10%);
-  }
 }
 
 .error {
