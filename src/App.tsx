@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Dropzone, { DropzoneState } from 'react-dropzone';
 import axios from 'axios';
+import './styles/app.scss';
 
 interface File extends Blob {
   name: string;
