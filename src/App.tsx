@@ -29,7 +29,7 @@ function App() {
     }
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (): Promise<void> => {
     try {
       // Check if file data exists
       if (!fileData) {
@@ -37,23 +37,43 @@ function App() {
       }
   
       // Post file data to the server
-      const response = await axios.post('http://localhost:5000/upload', { file: fileData }, { withCredentials: true });
+      const request = await axios.post('http://localhost:5000/upload', { file: fileData });
   
       // Check if the response is valid
-      if (!response.data) {
+      if (!request.data) {
         throw new Error('Invalid response');
       }
+      // Call handleDownload function
+      handleDownload();
+      } catch (error) {
+        setError('An error occurred while uploading the file');
+      }
+};
   
-      // Set download URL from response data
-      setDownloadUrl(response.data);
-      setError(null);
-    } catch (error) {
-      setError('An error occurred while uploading the file');
+const handleDownload = async (): Promise<void> => {
+  try {
+    // Check if file data exists
+    if (!fileData) {
+      throw new Error('No file selected');
     }
-  };
-  
-  
 
+    // Send file data to the server
+    const response = await axios.post('http://localhost:5000/download');
+
+    // Check if the response is valid
+    if (!response.data || typeof response.data !== 'string') {
+      throw new Error('Invalid response');
+    }
+
+    // Set download URL from response data
+    setDownloadUrl(response.data);
+    setError(null);
+  }  catch (error) {
+    setError('An error occurred while uploading the file');
+  }
+};
+
+  
   return (
     <div>
       <div className='zip-container'>
