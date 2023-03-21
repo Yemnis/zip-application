@@ -65,7 +65,7 @@ function App() {
                 {fileName ? (
                   <div>{fileName}</div>
                 ) : (
-                  <div>Drag and drop or click here to select a file</div>
+                  <div className='text'>Drag and drop or click here to select a file</div>
                 )}
               </div>
             )}
