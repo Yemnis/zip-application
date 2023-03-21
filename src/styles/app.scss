@@ -38,7 +38,6 @@ body {
   }
 }
 
-
 .dropzone {
   height: 200px;
   border: 2px dashed black;
@@ -47,7 +46,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin: 20px;
+  margin: 25px;
   border-radius: 10px;
 
   .text{
@@ -57,11 +56,6 @@ body {
 
 .dropzone-active {
   background-color: #e44dee;
-}
-
-.error {
-  color: red;
-  margin: 10px 0;
 }
 
 .download {

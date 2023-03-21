@@ -78,7 +78,7 @@ function App() {
       </button>
       {error && <div>{error}</div>}
       {downloadUrl && (
-        <div>
+        <div className='download'>
           <a href={downloadUrl} download>
             Download zipped file
           </a>
