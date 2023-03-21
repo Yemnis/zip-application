@@ -35,23 +35,24 @@ function App() {
       if (!fileData) {
         throw new Error('No file selected');
       }
-
+  
       // Post file data to the server
-      const response = await axios.post('http://127.0.0.1:5000', { file: fileData });
-
+      const response = await axios.post('http://localhost:5000/upload', { file: fileData }, { withCredentials: true });
+  
       // Check if the response is valid
       if (!response.data) {
         throw new Error('Invalid response');
       }
-
-      // Create blob from response data and set download URL
-      const blob = new Blob([response.data], { type: 'application/zip' });
-      setDownloadUrl(URL.createObjectURL(blob));
+  
+      // Set download URL from response data
+      setDownloadUrl(response.data);
       setError(null);
     } catch (error) {
       setError('An error occurred while uploading the file');
     }
   };
+  
+  
 
   return (
     <div>
