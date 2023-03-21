@@ -57,6 +57,7 @@ function App() {
     <div>
       <div className='zip-container'>
         <h1> Welcome to the Zip App</h1>
+        <div className='dropzone'>
           <Dropzone onDrop={(acceptedFiles: File[]) => handleDrop(acceptedFiles)}>
             {({ getRootProps, getInputProps, isDragActive }: DropzoneState) => (
               <div {...getRootProps()} className={isDragActive ? "dropzone-active" : ""}>
@@ -69,6 +70,7 @@ function App() {
               </div>
             )}
           </Dropzone>
+          </div>
       </div>
 
       <button disabled={!fileName} onClick={handleUpload}>

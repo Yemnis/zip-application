@@ -1,19 +1,13 @@
 $primary-color: blue;
 $background-color: #f5f5f5;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   background-color: $background-color;
   font-family: Arial, sans-serif;
   color: black;
 }
 
-.container {
+.zip-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +18,7 @@ body {
   width: 80%;
   height: 200px;
   border: 2px dashed black;
-  background-color: white;
+  background-color: rgb(45, 86, 167);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +28,7 @@ body {
 }
 
 .dropzone-active {
-  background-color: #eee;
+  background-color: #e44dee;
 }
 
 .btn {
