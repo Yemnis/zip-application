@@ -11,7 +11,7 @@ interface File extends Blob {
 function App() {
   const [file, setFile] = useState<File | null>(null); // Consolidated fileData and fileName into one state
   const [error, setError] = useState<string | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null); // Added missing setDownloadUrl
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
   const handleDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
