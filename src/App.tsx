@@ -6,106 +6,85 @@ import './styles/app.scss';
 interface File extends Blob {
   name: string;
   data?: string;
-  lastModified?: number;
-  webkitRelativePath?: string;
+
 }
 
 function App() {
-  const [fileData, setFileData] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null); // Consolidated fileData and fileName into one state
   const [error, setError] = useState<string | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
-  
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null); // Added missing setDownloadUrl
+
   const handleDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
-      const file = acceptedFiles[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        const fileData = reader.result as string;
-        setFileData(fileData);
-        setFileName(file.name);
-      };
-      reader.readAsBinaryString(file);
+      setFile(acceptedFiles[0]); // Set the file directly instead of converting it to text
     }
   };
+  
 
   const handleUpload = async (): Promise<void> => {
     try {
-      // Check if file data exists
-      if (!fileData) {
+      if (!file) {
         throw new Error('No file selected');
       }
-  
-      // Post file data to the server
-      const request = await axios.post('http://localhost:5000/upload', { file: fileData });
-  
-      // Check if the response is valid
-      if (!request.data) {
+
+      const formData = new FormData(); // Use FormData to send the file
+      formData.append('file', file);
+
+      const response = await axios.post('http://localhost:6060', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (!response.data) {
         throw new Error('Invalid response');
       }
-      // Call handleDownload function
-      handleDownload();
-      } catch (error) {
-        setError('An error occurred while uploading the file');
-      }
-};
-  
-const handleDownload = async (): Promise<void> => {
-  try {
-    // Check if file data exists
-    if (!fileData) {
-      throw new Error('No file selected');
+
+      setDownloadUrl(response.data.downloadUrl); // Set the downloadUrl
+    } catch (error) {
+      setError('An error occurred while uploading the file');
     }
-
-    // Send file data to the server
-    const response = await axios.post('http://localhost:5000/download');
-
-    // Check if the response is valid
-    if (!response.data || typeof response.data !== 'string') {
-      throw new Error('Invalid response');
-    }
-
-    // Set download URL from response data
-    setDownloadUrl(response.data);
-    setError(null);
-  }  catch (error) {
-    setError('An error occurred while uploading the file');
-  }
-};
-
-  
+  };
+    
   return (
     <div>
-      <div className='zip-container'>
-        <h1 className='header'> Welcome to the Zip App</h1>
-        <div className='dropzone'>
-          <Dropzone onDrop={(acceptedFiles: File[]) => handleDrop(acceptedFiles)}>
+      <div className="zip-container">
+        <h1 className="header"> Welcome to the Zip App</h1>
+        <h2>README is available in the REPO for both frontend & backend</h2>
+        <div className="dropzone">
+          <Dropzone onDrop={handleDrop}>
             {({ getRootProps, getInputProps, isDragActive }: DropzoneState) => (
-              <div {...getRootProps()} className={isDragActive ? "dropzone-active" : ""}>
+              <div
+                {...getRootProps()}
+                className={isDragActive ? "dropzone-active" : ""}
+              >
                 <input {...getInputProps()} />
-                {fileName ? (
-                  <div>{fileName}</div>
+                {file ? (
+                  <div>{file.name}</div>
                 ) : (
-                  <div className='text'>Drag and drop or click here to select a file</div>
+                  <div className="text">
+                    Drag and drop or click here to select a file
+                  </div>
                 )}
               </div>
             )}
           </Dropzone>
         </div>
-      
 
-      <button className='btn' disabled={!fileName} onClick={handleUpload}>
-        Upload and zip file
-      </button>
-      {error && <div>{error}</div>}
-      {downloadUrl && (
-        <div className='download'>
-          <a href={downloadUrl} download>
-            Download zipped file
-          </a>
-          <div>Transfer complete with no errors. Please enjoy the zipped file.</div>
-        </div>
-      )}
+        <button className="btn" disabled={!file} onClick={handleUpload}>
+          Upload and zip file
+        </button>
+        {error && <div>{error}</div>}
+        {downloadUrl && (
+          <div className="download">
+            <a href={downloadUrl} download>
+              Download zipped file
+            </a>
+            <div>
+              Transfer complete with no errors. Please enjoy the zipped file.
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
