@@ -6,7 +6,6 @@ import './styles/app.scss';
 interface File extends Blob {
   name: string;
   data?: string;
-
 }
 
 function App() {
