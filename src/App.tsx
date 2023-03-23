@@ -19,7 +19,6 @@ function App() {
     }
   };
   
-
   const handleUpload = async (): Promise<void> => {
     try {
       if (!file) {
