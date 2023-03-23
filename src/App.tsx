@@ -15,7 +15,7 @@ function App() {
 
   const handleDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
-      setFile(acceptedFiles[0]); // Set the file directly instead of converting it to text
+      setFile(acceptedFiles[0]); // Set the file directly
     }
   };
   
