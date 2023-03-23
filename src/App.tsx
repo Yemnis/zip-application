@@ -9,7 +9,7 @@ interface File extends Blob {
 }
 
 function App() {
-  const [file, setFile] = useState<File | null>(null); // Consolidated fileData and fileName into one state
+  const [file, setFile] = useState<File | null>(null); // Consolidate fileData and fileName into one state
   const [error, setError] = useState<string | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
